@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-MsDesafio2Application<apipedido>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "br.com.adriano.apipedido.MsDesafio2Application",
+            "projectName": "apipedido",
+            "args": ""
+        }
+    ]
+}
