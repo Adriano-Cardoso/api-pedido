@@ -2,17 +2,11 @@ package br.com.adriano.apipedido.domain.dto.request;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import br.com.adriano.apipedido.domain.dto.response.ItemResponse;
 import br.com.adriano.apipedido.domain.enums.StatusPedido;
 import br.com.adriano.apipedido.validations.OnCreate;
 import io.swagger.annotations.ApiModelProperty;
@@ -20,8 +14,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -51,10 +47,10 @@ public class PedidoRequest {
 	@ApiModelProperty(position = 4, required = false, value = "valor total do pedido", name = "amount", dataType = "BigDecimal", example = "10")
 	private BigDecimal amount;
 
-	@NotBlank(groups = { OnCreate.class }, message = "O campo 'itens'  esta invalido")
-	@NotNull(groups = { OnCreate.class }, message = "O campo 'itens' esta invalido")
-	@NotEmpty(groups = { OnCreate.class }, message = "O campo 'itens' esta invalido")
 	@ApiModelProperty(position = 5, required = false, value = "item do pedido", name = "itens", dataType = "ItemRequest", example = "1")
-	private Long itens;
+	private Long itensId;
+	
+	@ApiModelProperty(position = 6, required = false, value = "Cliente que solicitou pedido", name = "pedidoId", dataType = "Long", example = "1")
+	private Long clienteId;
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import br.com.adriano.apipedido.domain.Cliente;
 import br.com.adriano.apipedido.domain.Item;
 import br.com.adriano.apipedido.domain.Pedido;
 import br.com.adriano.apipedido.domain.dto.request.PedidoRequest;
@@ -24,6 +25,7 @@ public class PedidoService {
 		
 		Item item = new Item();
 		
+		
 		this.pedidoRepository.findByEmail(pedidoRequest.getEmail()).ifPresent(e -> {
 			throw Message.EMAIL_EXIST.asBusinessException();
 		});
@@ -31,6 +33,9 @@ public class PedidoService {
 		Pedido pedido = Pedido.of(pedidoRequest);
 		
 		pedido.addItem(item);
+		
+		
+		pedidoRepository.save(pedido);
 		
 		return pedido.toResponse();
 

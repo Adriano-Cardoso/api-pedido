@@ -6,22 +6,24 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@Setter
 @Getter
-public class ItemResponse {
-
-	private Long itensId;
-
-	private String name;
-
-	private BigDecimal unitaryValue;
-
-//	private Long pedidoId;
+@Builder
+public class ProdutoResponse {
 
 	private Long produtoId;
+
+	private String nome;
+
+	private String descricao;
+
+	private BigDecimal preco;
+
+	private Long categoriaId;
 
 	
 	

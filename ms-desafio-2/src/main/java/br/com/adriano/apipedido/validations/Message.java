@@ -12,7 +12,10 @@ public enum Message {
 	CATEGORY_EXIST("A categoria ja existe", HttpStatus.BAD_REQUEST),
 	EMAIL_EXIST("O Email ja existe em nossa base de dados", HttpStatus.BAD_REQUEST),
 	ITEM_EXIST("O ITEM ja existe em nossa base de dados", HttpStatus.BAD_REQUEST),
-	NOT_FOUND_ID("O id não existe", HttpStatus.NOT_FOUND);
+	NOT_FOUND_ID("O id não existe", HttpStatus.NOT_FOUND),
+	NOME_EXISTS("O Nome do produto ja existe em nossa base de dados", HttpStatus.BAD_REQUEST),
+	CPF_EXISTS("O Nome do Cliente ja existe em nossa base de dados", HttpStatus.BAD_REQUEST), 
+	NOT_FOUND_CATEGORY("O id da categoria existe", HttpStatus.NOT_FOUND);
 	
 	private String value;
 	private String description;

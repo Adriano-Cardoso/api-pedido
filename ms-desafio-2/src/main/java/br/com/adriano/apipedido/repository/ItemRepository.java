@@ -14,10 +14,10 @@ import br.com.adriano.apipedido.domain.dto.response.ItemResponse;
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long>{
 
-    @Query("select new br.com.adriano.apipedido.domain.dto.response.ItemResponse(i.itemId,i.name,i.unitaryValue) From Item i")
+    @Query("select new br.com.adriano.apipedido.domain.dto.response.ItemResponse(i.itemId,i.name,i.unitaryValue, i.produtoId) From Item i")
     List<ItemResponse> listAllItem();
 
-	@Query("select new br.com.adriano.apipedido.domain.dto.response.ItemResponse(i.itemId,i.name,i.unitaryValue) From Item i where i.name =:name")
+	@Query("select new br.com.adriano.apipedido.domain.dto.response.ItemResponse(i.itemId,i.name,i.unitaryValue, i.produtoId) From Item i where i.name =:name")
 	Optional<ItemResponse> findByName(@Param("name") String name);
 	
 

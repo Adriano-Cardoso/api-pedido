@@ -19,7 +19,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @AllArgsConstructor
 @RequestMapping(value = "v1/aplicativo/pedido")
-public class ControllerPedido {
+public class PedidoController {
 
 	private PedidoService pedidoService;
 
@@ -33,29 +33,31 @@ public class ControllerPedido {
 		return ResponseEntity.status(HttpStatus.OK).body(this.pedidoService.listAllPedidos());
 	}
 
-//	@PatchMapping("/cancela/{id}")
-//	public ResponseEntity<PedidoResponse> cancelledPedido(@PathVariable Integer id) {
-//		return ResponseEntity.ok(this.service.canceledPedido(id));
-//	}
-//	
-//	@PatchMapping("/concluido/{id}")
-//	public ResponseEntity<PedidoResponse> concluidoPedido(@PathVariable Integer id) {
-//		return ResponseEntity.ok(this.service.concluidoPedido(id));
-//	}
-//
-//	@PatchMapping("/{id}")
-//	public ResponseEntity<PedidoItemDto> updatePedido(@PathVariable Integer id, @RequestBody PedidoItemDto dto) {
-//		return ResponseEntity.ok(this.service.updateItemPedido(id, dto));
-//
-//	}
-//	@PatchMapping("/additem")
-//	public ResponseEntity<PedidoResponse> addPedido( @RequestBody PedidoResponse dto){
-//		return ResponseEntity.ok(this.service.addItemPedido(dto));
-//	}
-//	
-//	@PutMapping("removeritem")
-//	public ResponseEntity<PedidoResponse> removeItensPedido(@RequestBody PedidoResponse dto){
-//		return ResponseEntity.ok(this.service.removeItem(dto));
-//	}
-
 }
+
+////	@PatchMapping("/cancela/{id}")
+////	public ResponseEntity<PedidoResponse> cancelledPedido(@PathVariable Integer id) {
+////		return ResponseEntity.ok(this.service.canceledPedido(id));
+////	}
+////	
+////	@PatchMapping("/concluido/{id}")
+////	public ResponseEntity<PedidoResponse> concluidoPedido(@PathVariable Integer id) {
+////		return ResponseEntity.ok(this.service.concluidoPedido(id));
+////	}
+////
+////	@PatchMapping("/{id}")
+////	public ResponseEntity<PedidoItemDto> updatePedido(@PathVariable Integer id, @RequestBody PedidoItemDto dto) {
+////		return ResponseEntity.ok(this.service.updateItemPedido(id, dto));
+////
+////	}
+////	@PatchMapping("/additem")
+////	public ResponseEntity<PedidoResponse> addPedido( @RequestBody PedidoResponse dto){
+////		return ResponseEntity.ok(this.service.addItemPedido(dto));
+////	}
+////	
+////	@PutMapping("removeritem")
+////	public ResponseEntity<PedidoResponse> removeItensPedido(@RequestBody PedidoResponse dto){
+////		return ResponseEntity.ok(this.service.removeItem(dto));
+////	}
+//
+//}
