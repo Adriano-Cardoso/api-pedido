@@ -2,6 +2,8 @@ package br.com.adriano.apipedido.service;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -10,6 +12,7 @@ import br.com.adriano.apipedido.domain.dto.request.ItemRequest;
 import br.com.adriano.apipedido.domain.dto.response.ItemResponse;
 import br.com.adriano.apipedido.repository.ItemRepository;
 import br.com.adriano.apipedido.validations.Message;
+import br.com.adriano.apipedido.validations.OnCreate;
 import lombok.AllArgsConstructor;
 
 
@@ -20,8 +23,8 @@ public class ItemService {
 
 	private ItemRepository itemRepository;
 
-
-	public ItemResponse createItem(ItemRequest itemRequest) {
+	@Validated(OnCreate.class)
+	public ItemResponse createItem(@Valid ItemRequest itemRequest) {
 		this.itemRepository.findByName(itemRequest.getName()).ifPresent(n ->{
 			throw Message.ITEM_EXIST.asBusinessException();              
 		});

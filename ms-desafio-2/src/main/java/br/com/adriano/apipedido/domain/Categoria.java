@@ -45,4 +45,10 @@ public class Categoria implements Serializable{
 	public static Categoria of(CategoriaRequest categoriaRequest) {
 		return Categoria.builder().nome(categoriaRequest.getNome()).tipo(categoriaRequest.getTipo()).build();
 	}
+
+	public void update(CategoriaRequest categoriaRequest) {
+		this.nome = categoriaRequest.getNome();
+		this.tipo = categoriaRequest.getTipo();
+		
+	}
 }

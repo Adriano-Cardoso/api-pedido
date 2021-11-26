@@ -24,12 +24,14 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.adriano.apipedido.domain.dto.request.PedidoRequest;
+import br.com.adriano.apipedido.domain.dto.request.PedidoUpdateRequest;
 import br.com.adriano.apipedido.domain.dto.response.PedidoResponse;
 import br.com.adriano.apipedido.domain.enums.StatusPedido;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -53,6 +55,7 @@ public class Pedido implements Serializable {
 	@JsonFormat(pattern = "dd/mm/yyyy")
 	private LocalDate creationDate;
 
+	@Setter
 	@Column(name = "STATUS", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private StatusPedido status;
@@ -81,7 +84,8 @@ public class Pedido implements Serializable {
 
 	public static Pedido of(PedidoRequest pedidoRequest) {
 		Pedido pedido = Pedido.builder().email(pedidoRequest.getEmail()).status(pedidoRequest.getStatus())
-				.amount(pedidoRequest.getAmount()).clienteId(pedidoRequest.getClienteId()).itens(new ArrayList<Item>()).build();
+				.amount(pedidoRequest.getAmount()).clienteId(pedidoRequest.getClienteId()).itens(new ArrayList<Item>())
+				.build();
 
 		return pedido;
 	}
@@ -91,20 +95,38 @@ public class Pedido implements Serializable {
 				.amount(this.amount).clienteId(this.cliente.getClienteId()).build();
 
 	}
-	
+
 	public void addCliente(Cliente cliente) {
 		this.cliente = cliente;
 		this.clienteId = cliente.getClienteId();
 	}
 
-	public void registerItem(List<Long> item) {
-		this.itens = new ArrayList<>();
-		this.itensId = this.getItensId();
-	}
 
 	public void addItem(Item item) {
 		this.itens = new ArrayList<Item>();
 		this.itensId = this.getItensId();
 	}
+	
+	
+//	public void canceledPedido(PedidoRequest pedidoRequest) {
+//		pedidoRequest.getStatus();
+//		this.status = StatusPedido.CANCELADO;
+//		
+////		requestEntity.setStatus(StatusPedido.CANCELADO);
+//		
+//	}
+	
+	public void updateItemPedido(PedidoUpdateRequest pedidoUpdateRequest) {
+		this.itensId = pedidoUpdateRequest.getItensId();
+	}
+
+	public static Pedido canceledPedido(StatusPedido statusPedido) {
+		Pedido pedido = new Pedido();
+		pedido.setStatus(StatusPedido.CANCELADO);
+		pedido.getClienteId();
+		
+		return pedido;
+	}
+
 
 }

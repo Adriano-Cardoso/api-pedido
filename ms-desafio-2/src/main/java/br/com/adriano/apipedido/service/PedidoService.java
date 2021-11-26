@@ -1,65 +1,92 @@
 package br.com.adriano.apipedido.service;
 
 import java.util.List;
+import java.util.Optional;
+
+import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
-import br.com.adriano.apipedido.domain.Cliente;
 import br.com.adriano.apipedido.domain.Item;
 import br.com.adriano.apipedido.domain.Pedido;
 import br.com.adriano.apipedido.domain.dto.request.PedidoRequest;
+import br.com.adriano.apipedido.domain.dto.request.PedidoUpdateRequest;
 import br.com.adriano.apipedido.domain.dto.response.PedidoResponse;
+import br.com.adriano.apipedido.domain.enums.StatusPedido;
 import br.com.adriano.apipedido.repository.PedidoRepository;
 import br.com.adriano.apipedido.validations.Message;
+import br.com.adriano.apipedido.validations.OnCreate;
+import br.com.adriano.apipedido.validations.OnUpdate;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 @AllArgsConstructor
 public class PedidoService {
 
 	private PedidoRepository pedidoRepository;
 
+	@Validated(OnCreate.class)
+	public PedidoResponse create(@Valid PedidoRequest pedidoRequest) {
 
-
-	public PedidoResponse create(PedidoRequest pedidoRequest) {
-		
 		Item item = new Item();
-		
-		
+
 		this.pedidoRepository.findByEmail(pedidoRequest.getEmail()).ifPresent(e -> {
 			throw Message.EMAIL_EXIST.asBusinessException();
 		});
-		
+
 		Pedido pedido = Pedido.of(pedidoRequest);
-		
+
 		pedido.addItem(item);
-		
-		
+
 		pedidoRepository.save(pedido);
-		
+
+		log.info("method=create pedidoId={} email={} creationDate={} status={} amount={} itensId={} clienteId={}",
+				pedido.getPedidoId(), pedido.getEmail(), pedido.getCreationDate(), pedido.getStatus(),
+				pedido.getAmount(), pedido.getItensId(), pedido.getClienteId());
+
 		return pedido.toResponse();
 
 	}
 
-	public List<PedidoResponse> listAllPedidos(){
+	public List<PedidoResponse> listAllPedidos() {
 		return this.pedidoRepository.listAllPedidos();
 	}
 
-//	@Override
-//	public PedidoItemDto updateItemPedido(Integer id, PedidoItemDto dto) {
-//		Optional<Pedido> pedidoId = this.repository.findById(id);
-//
-//		if (pedidoId.isPresent()) {
-//			Pedido requestEntity = pedidoId.get();
-//			if (dto.getItens() != null || !dto.getItens().isEmpty()) {
-//				requestEntity.setItens(dto.getItens());
-//			}
-//			Pedido entidade = this.repository.save(requestEntity);
-//			return this.mapper.map(entidade, PedidoItemDto.class);
-//		}
-//		throw new PedidoIdResourceNotFoundException("Id do pedido não encontrado");
-//
-//	}
+	@Validated(OnUpdate.class)
+	@Transactional
+	public PedidoResponse updateItemPedido(Long pedidoId, @Valid PedidoUpdateRequest pedidoUpdateRequest) {
+		Pedido pedido = this.pedidoRepository.findById(pedidoId)
+				.orElseThrow(() -> Message.NOT_FOUND_PEDIDO.asBusinessException());
+
+		pedido.updateItemPedido(pedidoUpdateRequest);
+
+		log.info("method=update pedidoId={} itensId={}", pedidoId, pedido.getItensId());
+
+		return pedido.toResponse();
+	}
+
+	public PedidoResponse canceledPedido(Long pedidoId) {
+		Pedido pedido = this.pedidoRepository.findById(pedidoId)
+				.orElseThrow(() -> Message.NOT_FOUND_STATUS_CANCELADO.asBusinessException());
+
+
+		StatusPedido statusPedido = StatusPedido.CANCELADO;
+		pedido = Pedido.canceledPedido(statusPedido);
+
+		return pedido.toResponse();
+	}
+
+	public PedidoResponse findByEmail(String email) {
+		log.info("method=findByEmail email={}", email);
+		
+		return this.pedidoRepository.findByEmail(email).orElseThrow(() -> Message.EMAIL_EXIST.asBusinessException());
+
+	}
+
 //
 //	@Override
 //	public PedidoResponse canceledPedido(Integer id) {

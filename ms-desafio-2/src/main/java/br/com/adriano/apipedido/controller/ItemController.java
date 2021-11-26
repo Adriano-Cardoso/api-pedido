@@ -2,6 +2,8 @@ package br.com.adriano.apipedido.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +30,7 @@ public class ItemController {
 	}
 
 	@PostMapping(value = "insertitem")
-	public ResponseEntity<ItemResponse> insertPedido(@RequestBody ItemRequest itemRequest) {
+	public ResponseEntity<ItemResponse> insertPedido(@Valid @RequestBody ItemRequest itemRequest) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(this.itemService.createItem(itemRequest));
 	}
 //
