@@ -24,9 +24,22 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long>{
 			+ " p.status,"
 			+ " p.amount,"
 			+ " p.itensId,"
-			+ " p.clienteId) "
+			+ " p.clientId) "
 			+ "From Pedido p where p.email =:email")
 	Optional<PedidoResponse> findByEmail(@Param("email") String email);
+	
+	@Query("select new br.com.adriano.apipedido.domain.dto.response.PedidoResponse("
+			+ " p.pedidoId,"
+			+ " p.email,"
+			+ " p.status,"
+			+ " p.amount,"
+			+ " p.itensId,"
+			+ " p.clientId) "
+			+ "From Pedido p where p.itensId =:itensId")
+	Optional<PedidoResponse> findByItensId(@Param("itensId") Long itensId);
+	
+	@Query("delete From Pedido p where p.itensId =:itensId")
+	void deleteByItensId(@Param("itensId") Long itensId);
 
 
 
@@ -36,7 +49,7 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long>{
 			+ " p.status,"
 			+ " p.amount,"
 			+ " p.itensId,"
-			+ " p.clienteId) "
+			+ " p.clientId) "
 			+ " From Pedido p")
 	List<PedidoResponse> listAllPedidos();
 

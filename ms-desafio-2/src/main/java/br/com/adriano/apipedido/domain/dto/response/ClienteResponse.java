@@ -13,10 +13,10 @@ import lombok.NoArgsConstructor;
 public class ClienteResponse {
 
 	@ApiModelProperty(position = 1, required = false, value = "id do cliente", name = "clienteId", dataType = "Long", example = "1")
-	private Long clienteId;
+	private Long clientId;
 
 	@ApiModelProperty(position = 1, required = false, value = "nome do cliente", name = "nome", dataType = "String", example = "risonho")
-	private String nome;
+	private String name;
 
 	@ApiModelProperty(position = 1, required = false, value = "cpf do cliente", name = "cpf", dataType = "String", example = "12345678981")
 	private String cpf;

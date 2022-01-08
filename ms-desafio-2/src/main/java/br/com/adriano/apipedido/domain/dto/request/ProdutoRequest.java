@@ -26,13 +26,25 @@ public class ProdutoRequest implements Serializable {
 	@NotBlank(message = "O valor do campo 'nome' deve ser informado")
 	@NotEmpty(message = "O valor do campo 'nome' é obrigatorio no corpo da requisicao")
 	@NotNull(message = "O valor do campo 'nome' é obrigatorio no corpo da requisicao")
-	@ApiModelProperty(position = 1, value = "nome", name = "nome", dataType = "String", example = "risadinha")
-	private String nome;
+	@ApiModelProperty(position = 1, value = "name", name = "name", dataType = "String", example = "Camisa Lacoste")
+	private String name;
 
-	private String descricao;
+	@NotBlank(message = "O valor do campo 'nome' deve ser informado")
+	@NotEmpty(message = "O valor do campo 'nome' é obrigatorio no corpo da requisicao")
+	@NotNull(message = "O valor do campo 'nome' é obrigatorio no corpo da requisicao")
+	@ApiModelProperty(position = 2, value = "description", name = "description", dataType = "String", example = "camisa polo")
+	private String description;
 
-	private BigDecimal preco;
+	@NotBlank(message = "O valor do campo 'price' deve ser informado")
+	@NotEmpty(message = "O valor do campo 'price' é obrigatorio no corpo da requisicao")
+	@NotNull(message = "O valor do campo 'price' é obrigatorio no corpo da requisicao")
+	@ApiModelProperty(position = 3, value = "price", name = "price", dataType = "BigDecimal", example = "10.00")
+	private BigDecimal price;
 
-	private Long categoriaId;
+	@NotBlank(message = "O valor do campo 'categoryIdome' deve ser informado")
+	@NotEmpty(message = "O valor do campo 'categoryId' é obrigatorio no corpo da requisicao")
+	@NotNull(message = "O valor do campo 'categoryId' é obrigatorio no corpo da requisicao")
+	@ApiModelProperty(position = 2, value = "categoryId", name = "categoryId", dataType = "Long", example = "3")
+	private Long categoryId;
 
 }

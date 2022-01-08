@@ -17,7 +17,11 @@ public enum Message {
 	CPF_EXISTS("O Nome do Cliente ja existe em nossa base de dados", HttpStatus.BAD_REQUEST), 
 	NOT_FOUND_CATEGORY("O id da categoria existe", HttpStatus.NOT_FOUND),
 	NOT_FOUND_PEDIDO("O id da categoria existe", HttpStatus.NOT_FOUND),
-	NOT_FOUND_STATUS_CANCELADO("O status ja consta como cancelado");
+	STATUS_CANCELADO("O status ja consta como cancelado", HttpStatus.BAD_REQUEST), 
+	NOT_FOUND_CLIENTE_ID("O Id do cliente não existe ", HttpStatus.NOT_FOUND),
+	NOT_FOUND_ITEM_ID("O Id do item não existe ", HttpStatus.NOT_FOUND),
+	NOT_FOUND_PRODUCT_ID("O Id do produto não existe ", HttpStatus.NOT_FOUND),
+	NOT_FOUND_PEDIDO_ID("O Id do pedido não existe ", HttpStatus.NOT_FOUND);
 	
 	private String value;
 	private String description;

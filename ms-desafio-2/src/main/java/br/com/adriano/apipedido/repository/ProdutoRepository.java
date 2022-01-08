@@ -15,20 +15,20 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 	
 	
 	@Query("select new br.com.adriano.apipedido.domain.dto.response.ProdutoResponse("
-			+ " p.produtoId,"
-			+ " p.nome,"
-			+ " p.descricao,"
-			+ " p.preco,"
-			+ " p.categoriaId)"
-			+ "From Produto p where p.nome =:nome")
-	Optional<ProdutoResponse> findByNome(String nome);
+			+ " p.productId,"
+			+ " p.name,"
+			+ " p.description,"
+			+ " p.price,"
+			+ " p.categoryId)"
+			+ "From Produto p where p.name =:name")
+	Optional<ProdutoResponse> findByNome(String name);
 	
 	@Query("select new br.com.adriano.apipedido.domain.dto.response.ProdutoResponse("
-			+ " p.produtoId,"
-			+ " p.nome,"
-			+ " p.descricao,"
-			+ " p.preco,"
-			+ " p.categoriaId)"
+			+ " p.productId,"
+			+ " p.name,"
+			+ " p.description,"
+			+ " p.price,"
+			+ " p.categoryId)"
 			+ "From Produto p")
 	List<ProdutoResponse> listAllProdutos();
 

@@ -21,7 +21,7 @@ public class ItemResponse {
 
 //	private Long pedidoId;
 
-	private Long produtoId;
+	private Long productId;
 
 	
 	

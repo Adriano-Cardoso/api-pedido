@@ -29,21 +29,26 @@ public class Cliente implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "cliente_id", nullable = false)
-	private Long clienteId;
+	private Long clientId;
 
 	@Column(name = "nome", nullable = false)
-	private String nome;
+	private String name;
 
 	@Column(name = "cpf", nullable = false)
 	private String cpf;
 
 	public ClienteResponse toResponse() {
-		return ClienteResponse.builder().clienteId(this.clienteId).nome(this.nome).cpf(this.cpf).build();
+		return ClienteResponse.builder().clientId(this.clientId).name(this.name).cpf(this.cpf).build();
 	}
 
 	public static Cliente of(ClienteRequest clienteRequest) {
-		return Cliente.builder().nome(clienteRequest.getNome())
+		return Cliente.builder().name(clienteRequest.getName())
 				.cpf(clienteRequest.getCpf()).build();
+	}
+	
+	public void updateCliente(ClienteRequest clienteRequest) {
+		this.name = clienteRequest.getName();
+		this.cpf = clienteRequest.getCpf();
 	}
 
 }

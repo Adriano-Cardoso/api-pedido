@@ -42,29 +42,39 @@ public class Item implements Serializable {
 	@Column(name = "VALOR_UNITARIO", nullable = false)
 	private BigDecimal unitaryValue;
 
-	@Column(name = "pedido_id", nullable = true, insertable = false, updatable = false)
-	private Long pedidoId;
+//	@Column(name = "pedido_id", nullable = true, insertable = false, updatable = false)
+//	private Long pedidoId;
 
 	@Column(name = "produto_id", nullable = true, insertable = false, updatable = false)
-	private Long produtoId;
+	private Long productId;
 
-	@ManyToOne(fetch = FetchType.EAGER, optional = false)
-	@JoinColumn(name = "pedido_id", referencedColumnName = "pedido_id")
-	private Pedido pedido;
+//	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+//	@JoinColumn(name = "pedido_id", referencedColumnName = "pedido_id")
+//	private Pedido pedido;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, optional = false)
 	@JoinColumn(name = "produto_id", referencedColumnName = "produto_id")
-	private Produto produto;
+	private Produto product;
 
 	public ItemResponse toResponse() {
 		return ItemResponse.builder().itensId(this.itemId).name(this.name).unitaryValue(this.unitaryValue)
-				.produtoId(this.produtoId).build();
+				.productId(this.productId).build();
 	}
 
 	public static Item of(ItemRequest itemRequest) {
-		return Item.builder().name(itemRequest.getName()).unitaryValue(itemRequest.getUnitaryValue())
-				.produtoId(itemRequest.getProdutoId()).build();
+		return Item.builder().name(itemRequest.getName()).unitaryValue(itemRequest.getUnitaryValue()).build();
 
 	}
+
+	public void addProduto(Produto produto) {
+		this.product = produto;
+		this.productId = produto.getProductId();
+
+	}
+
+//	public void addPedido(Pedido pedido) {
+//		this.pedido = pedido;
+//		this.pedidoId = pedido.getPedidoId();
+//	}
 
 }

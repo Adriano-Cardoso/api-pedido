@@ -28,7 +28,7 @@ public class SwaggerConfig {
 	}
 
 	private ApiInfo apiInfo() {
-		return new ApiInfo("Rest API carrinho de compras Spring Boot", "Plataforma para carrinho de compras", "v1", "Terms Of Service Url",
+		return new ApiInfo("Rest API pedidos Spring Boot", "Plataforma para pedidos", "v1", "Terms Of Service Url",
 				new Contact("Adriano Cardoso", "https://github.com/Adriano-Cardoso", "goularta97@gmail.com"), "Liscense of API",
 				"License of URL", Collections.emptyList());
 	}

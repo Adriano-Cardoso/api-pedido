@@ -67,9 +67,9 @@ public class Pedido implements Serializable {
 	private Long itensId;
 
 	@Column(name = "cliente_id", nullable = true, insertable = false, updatable = false)
-	private Long clienteId;
+	private Long clientId;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, optional = false)
 	@JoinColumn(name = "cliente_id", referencedColumnName = "cliente_id")
 	private Cliente cliente;
 
@@ -84,49 +84,36 @@ public class Pedido implements Serializable {
 
 	public static Pedido of(PedidoRequest pedidoRequest) {
 		Pedido pedido = Pedido.builder().email(pedidoRequest.getEmail()).status(pedidoRequest.getStatus())
-				.amount(pedidoRequest.getAmount()).clienteId(pedidoRequest.getClienteId()).itens(new ArrayList<Item>())
-				.build();
+				.amount(pedidoRequest.getAmount()).build();
 
 		return pedido;
 	}
 
 	public PedidoResponse toResponse() {
 		return PedidoResponse.builder().pedidoId(this.pedidoId).email(this.email).status(this.status)
-				.amount(this.amount).clienteId(this.cliente.getClienteId()).build();
+				.amount(this.amount).clienteId(this.cliente.getClientId()).itensId(this.itensId).build();
 
 	}
 
 	public void addCliente(Cliente cliente) {
 		this.cliente = cliente;
-		this.clienteId = cliente.getClienteId();
-	}
+		this.clientId = cliente.getClientId();
 
+	}
 
 	public void addItem(Item item) {
 		this.itens = new ArrayList<Item>();
-		this.itensId = this.getItensId();
+		this.itensId = item.getItemId();
 	}
-	
-	
-//	public void canceledPedido(PedidoRequest pedidoRequest) {
-//		pedidoRequest.getStatus();
-//		this.status = StatusPedido.CANCELADO;
-//		
-////		requestEntity.setStatus(StatusPedido.CANCELADO);
-//		
-//	}
-	
+
 	public void updateItemPedido(PedidoUpdateRequest pedidoUpdateRequest) {
 		this.itensId = pedidoUpdateRequest.getItensId();
 	}
 
-	public static Pedido canceledPedido(StatusPedido statusPedido) {
-		Pedido pedido = new Pedido();
-		pedido.setStatus(StatusPedido.CANCELADO);
-		pedido.getClienteId();
-		
-		return pedido;
-	}
+	public void alterStatus(StatusPedido statusPedido) {
+		this.status = statusPedido;
+		this.setStatus(statusPedido);
 
+	}
 
 }

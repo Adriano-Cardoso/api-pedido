@@ -23,18 +23,16 @@ public class PedidoResponse {
 	@ApiModelProperty(position = 2, required = false, value = "email do solicitante do pedido", name = "email", dataType = "String", example = "teste@teste.com")
 	private String email;
 
-
-	@ApiModelProperty(position = 4, required = false, value = "status do pedido", name = "status", dataType = "Enum", example = "AGUARDANDO_CONFIRMACAO")
+	@ApiModelProperty(position = 3, required = false, value = "status do pedido", name = "status", dataType = "Enum", example = "AGUARDANDO_CONFIRMACAO")
 	private StatusPedido status;
 
-	@ApiModelProperty(position = 5, required = false, value = "data de cria��o do pedido", name = "amount", dataType = "BigDecimal", example = "10.00")
+	@ApiModelProperty(position = 4, required = false, value = "data de criacao do pedido", name = "amount", dataType = "BigDecimal", example = "10.00")
 	private BigDecimal amount;
 
-	@ApiModelProperty(position = 6, required = false, value = "item do pedido", name = "itens", dataType = "List<ItemResponse>", example = "1")
+	@ApiModelProperty(position = 5, required = false, value = "id do item do pedido", name = "itensId", dataType = "Long", example = "2")
 	private Long itensId;
 
-	@ApiModelProperty(position = 7, required = false, value = "cliente responsavel pelo pedido", name = "clienteId", dataType = "ClienteResponse", example = "1")
+	@ApiModelProperty(position = 6, required = false, value = "id do cliente responsavel pelo pedido", name = "clienteId", dataType = "Long", example = "2")
 	private Long clienteId;
 
-	
 }

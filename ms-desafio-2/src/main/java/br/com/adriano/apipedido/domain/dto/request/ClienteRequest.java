@@ -27,7 +27,7 @@ public class ClienteRequest implements Serializable {
 	@NotNull(groups = {OnCreate.class}, message = "O valor do campo 'nome' é obrigatorio no corpo da requisicao")
 	@Size(groups = {OnCreate.class}, min = 1,  max = 14,  message = "O valor do campo 'nome' '${validatedValue}' deve estar entre {min} e {max} caracteres")
 	@ApiModelProperty(position = 1, required = false, value = "nome do cliente", name = "nome", dataType = "String", example = "risadas")
-	private String nome;
+	private String name;
 	
 	@NotBlank(groups = {OnCreate.class}, message = "O valor do campo 'cpf' deve ser informado")
 	@NotNull(groups = {OnCreate.class}, message = "O valor do campo 'cpf' é obrigatorio no corpo da requisicao")

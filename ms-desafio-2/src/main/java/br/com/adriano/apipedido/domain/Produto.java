@@ -21,12 +21,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Getter
 @Entity
+@ToString
 @Table(name = "TB_PRODUTO")
 public class Produto implements Serializable {
 
@@ -35,26 +37,26 @@ public class Produto implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "produto_id", nullable = false)
-	private Long produtoId;
+	private Long productId;
 
 	@Column(name = "nome", nullable = false)
-	private String nome;
+	private String name;
 
 	@Column(name = "descricao", nullable = false)
-	private String descricao;
+	private String description;
 
 	@Column(name = "preco", nullable = false)
-	private BigDecimal preco;
+	private BigDecimal price;
 
 	@Column(name = "data_Cadastro", nullable = false)
 	private LocalDate dataCadastro;
 
 	@Column(name = "categoria_id", nullable = true, insertable = false, updatable = false)
-	private Long categoriaId;
+	private Long categoryId;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "categoria_id", referencedColumnName = "categoria_id")
-	private Categoria categoria;
+	private Categoria category;
 
 	@PrePersist
 	public void prePersist() {
@@ -62,18 +64,28 @@ public class Produto implements Serializable {
 	}
 
 	public static Produto of(ProdutoRequest produtoRequest) {
-		return Produto.builder().nome(produtoRequest.getNome()).descricao(produtoRequest.getDescricao())
-				.preco(produtoRequest.getPreco()).build();
+		return Produto.builder().name(produtoRequest.getName()).description(produtoRequest.getDescription())
+				.price(produtoRequest.getPrice()).build();
 
 	}
 
 	public ProdutoResponse toResponse() {
-		return ProdutoResponse.builder().produtoId(this.produtoId).nome(this.nome).descricao(this.descricao)
-				.preco(this.preco).categoriaId(this.categoria.getCategoriaId()).build();
+		return ProdutoResponse.builder().productId(this.productId).name(this.name).description(this.description)
+				.price(this.price).categoryId(this.category.getCategoriaId()).build();
 	}
 	
 	public void addCategoria(Categoria categoria) {
-		this.categoria = categoria;
-		this.categoriaId = categoria.getCategoriaId();
+		this.category = categoria;
+		this.categoryId = categoria.getCategoriaId();
+	}
+
+	public void updateProduto(ProdutoRequest produtoRequest) {
+		this.name = produtoRequest.getName();
+		this.description = produtoRequest.getDescription();
+			
+	}
+	
+	public void updatePrice(ProdutoRequest produtoRequest) {
+		this.price = produtoRequest.getPrice();
 	}
 }
